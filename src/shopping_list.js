@@ -5,4 +5,4 @@ import './js/localStorage';
 import './js/mobileMenu';
 import './js/themeSwitch';
 import './js/slider';
-// import './js/formFirebase';
+import './js/formFirebase';

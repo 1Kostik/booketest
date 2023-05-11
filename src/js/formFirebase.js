@@ -26,7 +26,7 @@ const btnEnter = document.getElementById('btnEnter');
 const btnUp = document.querySelector('.btnUp');
 const btnLogOut = document.getElementById('btnLogOut');
 const btnIn = document.querySelector('.btnIn');
-
+ const logOutBtn = document.getElementById('logOutBtn');
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
@@ -42,7 +42,9 @@ auth.onAuthStateChanged(user => {
     const signUpBox = document.getElementById('signUpBox');
     signUpBox.classList.add('is-out');
     const navMain = document.getElementById('navMain');
-    navMain.classList.toggle('is-hidden')
+    navMain.classList.toggle('is-hidden');
+   
+    
     //покажи шоплист и добавь имя на кнопку в хедере и покажи иконку випадающего окна(при клике выведи кнопку логаут)
 
     console.log('user loggged in');
@@ -140,7 +142,7 @@ const loginEmailPassword = async e => {
 
 btnEnter.addEventListener('click', loginEmailPassword);
 
-// btnLogOut.addEventListener('click', onBtnLogout);
+ logOutBtn.addEventListener('click', onBtnLogout);
 
 //функция выхода
 
@@ -153,8 +155,8 @@ function onBtnLogout(event) {
         console.log('user loggged in');
       } else {
         //убери шоплист и убери имя на кнопку в хедере и убери иконку выпадающего окна
-        localStorage.getItem('name');
-        // console.log('user loggged out');
+     const userBookList = localStorage.getItem('shoppingList');
+        console.log(userBookList);
         location.reload();
       }
     });
