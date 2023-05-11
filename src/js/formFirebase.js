@@ -36,14 +36,19 @@ const database = getDatabase(app);
 auth.onAuthStateChanged(user => {
   if (user) {
     const loggedUserName = localStorage.getItem('name');
-    const blueBtn = document.querySelector('.blueBtn');
+    const blueBtn = document.querySelector('.user-name');
     blueBtn.textContent = loggedUserName;
     console.log(loggedUserName);
+    const signUpBox = document.getElementById('signUpBox');
+    signUpBox.classList.add('is-out');
+    const navMain = document.getElementById('navMain');
+    navMain.classList.toggle('is-hidden')
     //покажи шоплист и добавь имя на кнопку в хедере и покажи иконку випадающего окна(при клике выведи кнопку логаут)
 
     console.log('user loggged in');
   } else {
     //убери шоплист и убери имя на кнопку в хедере и убери иконку випадающего окна
+     signUpBox.classList.remove('is-out');
     console.log('user loggged out');
   }
 });
@@ -65,7 +70,7 @@ async function createLoginEmailPassword(e) {
       email: loginEmail,
       name: loginName,
     });
-    console.log(user);
+   
     Notify.info('Sign up is successful, please Sign in to continue!');
   });
 
@@ -86,50 +91,54 @@ async function createLoginEmailPassword(e) {
   //       }
 }
 
-btnUp.addEventListener('click', createLoginEmailPassword);
+btnEnter.addEventListener('click', createLoginEmailPassword);
 
 const loginEmailPassword = async e => {
-  e.preventDefault();
+  if (btnEnter.classList.contains('btnIn')) {
+     e.preventDefault();
+     const loginEmail = inputEmail.value;
+     const loginPassword = inputPassword.value;
+     const userCredential = await signInWithEmailAndPassword(
+       auth,
+       loginEmail,
+       loginPassword
+     );
 
-  const loginEmail = inputEmail.value;
-  const loginPassword = inputPassword.value;
-  const userCredential = await signInWithEmailAndPassword(
-    auth,
-    loginEmail,
-    loginPassword
-  );
+     const userId = auth.currentUser.uid;
+     const getValue = await returnName();
+     function returnName() {
+       return onValue(
+         ref(database, '/users/' + userId),
+         snapshot => {
+           const username = snapshot.val().name;
 
-  const userId = auth.currentUser.uid;
-  const getValue = await returnName();
-  function returnName() {
-    return onValue(
-      ref(database, '/users/' + userId),
-      snapshot => {
-        const username = snapshot.val().name;
-
-        localStorage.setItem('name', username);
-      },
-      {
-        onlyOnce: true,
-      }
-    );
+           localStorage.setItem('name', username);
+         },
+         {
+           onlyOnce: true,
+         }
+       );
+     }
+  } else {
+    return;
   }
+ 
 
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      //покажи шоплист и добавь имя на кнопку в хедере и покажи иконку випадающего окна(при клике выведи кнопку логаут)
-      const loggedUserName = localStorage.getItem('name');
+  // auth.onAuthStateChanged(user => {
+  //   if (user) {
+  //     //покажи шоплист и добавь имя на кнопку в хедере и покажи иконку випадающего окна(при клике выведи кнопку логаут)
+  //     const loggedUserName = localStorage.getItem('name');
 
-      console.log('user loggged in');
-    }
-    // } else {
-    //   //убери шоплист и убери имя на кнопку в хедере и убери иконку випадающего окна
-    //   console.log('user loggged out');
-    // }
-  });
+  //     console.log('user loggged in');
+  //   }
+  //   // } else {
+  //   //   //убери шоплист и убери имя на кнопку в хедере и убери иконку випадающего окна
+  //   //   console.log('user loggged out');
+  //   // }
+  // });
 };
 
-btnIn.addEventListener('click', loginEmailPassword);
+btnEnter.addEventListener('click', loginEmailPassword);
 
 // btnLogOut.addEventListener('click', onBtnLogout);
 

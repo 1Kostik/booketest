@@ -1,7 +1,6 @@
-.navigation-main.is-hidden{
+.is-out{
   display: none;
 }
-
 
 .header-container {
   position: relative;
@@ -50,7 +49,7 @@
   display: none;
 }
 .authorizated-btn {
-  display: none;
+  display: block;
 }
 .log-out-btn {
   display: none;
@@ -317,7 +316,7 @@ body.mobile-menu-open {
   .logo-link {
     margin-right: 40px;
   }
-  .navigation-main {
+  .navigation-main{
     display: block;
   }
   .navigation-list {
@@ -389,13 +388,15 @@ body.mobile-menu-open {
     margin-left: 90px;
   }
   /* ----------------------------------------------TABLET-AUTHORIZATED----------------------------------------------------------- */
-  // .sign-up-box {
+  //  signUpBox.classList.add('is-hidden') {
   //   display: none;
   // }
   .authorizated-box {
-    display: none;
+    display: block;
   }
-
+.sign-authorizated-box{
+display:block;
+}
   .authorizated-btn {
     position: relative;
     display: flex;
