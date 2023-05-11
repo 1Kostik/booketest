@@ -43,13 +43,14 @@ auth.onAuthStateChanged(user => {
     signUpBox.classList.add('is-out');
     const navMain = document.getElementById('navMain');
     navMain.classList.toggle('is-hidden');
+    const authBox = document.getElementById('authBox');
    
-    
     //покажи шоплист и добавь имя на кнопку в хедере и покажи иконку випадающего окна(при клике выведи кнопку логаут)
 
     console.log('user loggged in');
   } else {
     //убери шоплист и убери имя на кнопку в хедере и убери иконку випадающего окна
+     authBox.classList.add('is-hidden');
      signUpBox.classList.remove('is-out');
     console.log('user loggged out');
   }
