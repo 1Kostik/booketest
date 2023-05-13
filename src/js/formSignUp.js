@@ -4,58 +4,124 @@ import Notiflix from "notiflix";
 
 (() => {
     const refs = {
+      closeModalBtn: document.querySelector('[data-modal-close-sign]'),
         openModalBtn: document.querySelector('[data-modal-open-sign]'),
-        closeModalBtn: document.querySelector('[data-modal-close-sign]'),
-        modal: document.querySelector('[data-modal-sign]'),
+      
+      modal: document.querySelector('[data-modal-sign]'),
         openModalBtnMob: document.querySelector('[data-modal-open-sign-mobile]'),
-        mobileMenuBtn: document.querySelector('[data-mobile-menu-btn]'),
+      
+      mobileMenuBtn: document.querySelector('[data-mobile-menu-btn]'),
         mobileMenu: document.querySelector('[data-mobile-menu]'),
-        body: document.querySelector('body'),
+      
+      body: document.querySelector('body'),
+        wrapmodalsign: document.querySelector('.wrap_modal_sign'),
+      
+      btnSign: document.querySelector('.sign-btn-on-modal'),
+        signUp: document.querySelector('.sign-up'),
+      
+      signIn: document.querySelector('.sign-in'),
+        name: document.querySelector('.name'),
+      
+      backdropEl: document.querySelector('.bacckdrop-sign'),
     };
 
     refs.openModalBtn.addEventListener('click', toggleModal);
     refs.closeModalBtn.addEventListener('click', toggleModal);
     refs.openModalBtnMob.addEventListener('click', toggleModal);
-
+    refs.closeModalBtn.addEventListener('click', toggleModal);
     function toggleModal() {
         refs.modal.classList.toggle('is-hidden');
         refs.mobileMenu.classList.remove('is-open');
         refs.mobileMenuBtn.classList.remove('is-open');
         refs.body.classList.remove('mobile-menu-open');
-    }    
+        refs.wrapmodalsign.classList.toggle('is-hidden');
+        // refs.closeModalBtn.classList.toggle('is-hidden'); //----
+    };
+
+    refs.btnSign.addEventListener('click', (evt) => {
+        evt.preventDefault()
+        Notiflix.Notify.success('We are glad you to welcome on our site!')
+    });
+
+    refs.signIn.addEventListener('click', (evt) => {
+        evt.preventDefault()
+        Notiflix.Notify.info('Hello! Nice to see you again')
+        refs.btnSign.innerHTML = 'sign in';
+
+        refs.signIn.classList.add("is-current-sign");
+        refs.signUp.classList.remove("is-current-sign");
+
+        refs.name.classList.add("is-hiden");
+    });
+
+    refs.signUp.classList.add("is-current-sign");
+
+    refs.signUp.addEventListener('click', (evt) => {
+        evt.preventDefault()
+        Notiflix.Notify.info(`Hello! let&#39;s get to know each other`)
+        refs.btnSign.innerHTML = 'sign up';
+
+        refs.signIn.classList.remove("is-current-sign");
+        refs.signUp.classList.add("is-current-sign");
+
+        refs.name.classList.remove("is-hiden");
+    })
+
+
+    // close
+    refs.backdropEl.addEventListener('click', closeModal);
+ 
+    // refs.modal.classList.add('is-hidden');
+    function closeModal(event) {
+        const clickOnBackdropEl = event.target
+        // console.log(clickOnBackdropEl)
+        if (
+          clickOnBackdropEl.hasAttribute('data-modal-sign')) {
+          refs.backdropEl.classList.add('is-hidden'); 
+           refs.wrapmodalsign.classList.toggle('is-hidden');
+        }
+        return
+    }
+    document.addEventListener("keydown", event => {        
+      
+        if (event.key === 'Escape') {
+            refs.backdropEl.classList.add('is-hidden')
+            refs.wrapmodalsign.classList.toggle('is-hidden');
+           
+        }
+    
+    });
+    
+
 })();
-
-
+// ----------------------------код для firebase--------------------------
   const signIn = document.getElementById('signIn');
   const signUp = document.getElementById('signUp');
-    
 
-signIn.addEventListener('click', onBtnSignInClick);
-function onBtnSignInClick() {
+  signIn.addEventListener('click', onBtnSignInClick);
+  function onBtnSignInClick() {
     const btnEnter = document.getElementById('btnEnter');
     if (btnEnter.classList.contains('btnUp')) {
-        btnEnter.classList.remove('btnUp');
-        btnEnter.classList.add('btnIn');
+      btnEnter.classList.remove('btnUp');
+      btnEnter.classList.add('btnIn');
     } else {
-        return;
+      return;
     }
-    
-}
+  }
 
-signUp.addEventListener('click', onBtnSignUpClick);
+  signUp.addEventListener('click', onBtnSignUpClick);
 
-function onBtnSignUpClick() {
+  function onBtnSignUpClick() {
     const btnEnter = document.getElementById('btnEnter');
     if (btnEnter.classList.contains('btnIn')) {
       btnEnter.classList.remove('btnIn');
       btnEnter.classList.add('btnUp');
     } else {
       return;
-    }     
- 
-}
+    }
+  }
 
-
+// ------------------------------------------------------------------
 
 
 
@@ -82,30 +148,6 @@ window.onload = () => {
 }
 
 
-// let x = 0;
-// const counter = document.querySelector('.countBtn');
-// const shopList = document.querySelector('#hide');
-
-// const acum = document.querySelector('.acum');
-
-// function count() {
-// 	x++;
-
-//     if (x > 0) {
-//         shopList.classList.remove('is-hiden')
-//         console.log('спрацювало')
-//     }
-
-//     console.log(x)
-
-// 	acum.innerHTML = x;
-// }
-
-// counter.addEventListener('click', (evt) => {
-// count();
-
-// })
-
 
 
 let x = 0;
@@ -115,65 +157,10 @@ const acum = document.querySelector('.acum');
 
 acum.innerHTML = x;
 
-if (acum ==='') {
+if (acum === '') {
     acum.classList.add("visibility");
 }
-
-
-
-
-const refs = {
-    btnSign: document.querySelector('.sign-btn-on-modal'),
-
-    signUp: document.querySelector(".sign-up"),
-    signIn: document.querySelector('.sign-in'),
-
-    name: document.querySelector('.name'),
-    backdropEl: document.querySelector('.bacckdrop-sign'),
-}
-
-refs.btnSign.addEventListener('click', (evt) => {
-    evt.preventDefault()
-    Notiflix.Notify.info('We are glad you to welcome on our site!')
-});
-
-refs.signIn.addEventListener('click', (evt) => {
-    evt.preventDefault()
-    Notiflix.Notify.info('Hello! Nice to see you again')
-    refs.btnSign.innerHTML = 'sign in';
-
-    refs.signIn.classList.add("is-current-sign");
-    refs.signUp.classList.remove("is-current-sign");
-
-    refs.name.classList.add("visibility");
-});
-
-refs.signUp.addEventListener('click', (evt) => {
-    evt.preventDefault()
-    Notiflix.Notify.info(`Hello! let&#39;s get to know each other`)
-    refs.btnSign.innerHTML = 'sign up';
-
-    refs.signIn.classList.remove("is-current-sign");
-    refs.signUp.classList.add("is-current-sign");
-
-    refs.name.classList.remove("visibility");
-})
-
-
-refs.backdropEl.addEventListener('click', onModalClose);
-  document.addEventListener('keydown', onModalClose);
-
-  function onModalClose(e) {
-    if (e.target.hasAttribute('data-modal-close-sign') || e.key === 'Escape') {
-      refs.backdropEl.classList.add('is-hidden');
-    //   refs.bodyEl.classList.remove('modalIsOpen');
-  
-      refs.backdropEl.removeEventListener('click', onModalClose);
-      document.removeEventListener('keydown', onModalClose);
-      refs.modalActionBtnEl.removeEventListener('click', onModalActionBtnClick);
-      refs.modalEl.classList.add('is-hidden');
-  
-      refs.modalNotification.innerHTML = '';
-    }
-  }
-  
+// window.addEventListener('keydown', keypress)
+// function keypress(e) {
+//     console.dir(e.key)
+// }

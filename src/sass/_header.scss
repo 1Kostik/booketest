@@ -1,6 +1,9 @@
-.is-out{
+// ----------------добавил класс-------
+
+.is-out {
   display: none;
 }
+// --------------------------------------------------------
 
 .header-container {
   position: relative;
@@ -49,7 +52,7 @@
   display: none;
 }
 .authorizated-btn {
-  display: block;
+  display: none;
 }
 .log-out-btn {
   display: none;
@@ -241,7 +244,7 @@
   background-color: var(--bg-current-page);
   font-weight: 700;
   border-radius: 36px;
-  color: var(--text-color-title-dark);
+  color: #111111;
 }
 .mobile-navigation-link {
   display: flex;
@@ -265,7 +268,7 @@
   border: 1.5px solid var(--text-color-title-dark);
   border-radius: 18px;
   color: var(--text-color-title-dark);
-  background: var(--text-color-title-white);
+  background: var(--bg-white-header);
   cursor: pointer;
   margin-top: auto;
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -285,20 +288,6 @@
 body.mobile-menu-open {
   overflow: hidden;
 }
-/* -----------------------------------------------------DARK-THEME-MOBILE------------------------------------------------ */
-.header-container.dark-theme {
-  background: var(--bg-dark-theme-header);
-  color: var(--text-color-title-white);
-  border: 1.5px solid var(--text-color-title-white);
-}
-.logo-name.dark-theme {
-  fill: var(--text-color-title-white);
-}
-.cross-icon.dark-theme,
-.burger-icon.dark-theme {
-  fill: var(--text-color-title-white);
-}
-
 /* -----------------------------------------------------TABLET------------------------------------------------------------ */
 @media screen and (min-width: 768px) {
   .mobile-menu-container,
@@ -316,7 +305,7 @@ body.mobile-menu-open {
   .logo-link {
     margin-right: 40px;
   }
-  .navigation-main{
+  .navigation-main {
     display: block;
   }
   .navigation-list {
@@ -348,7 +337,9 @@ body.mobile-menu-open {
     background-color: var(--bg-current-page);
     font-weight: 700;
     border-radius: 36px;
-    color: var(--text-color-title-dark);
+  }
+  .current.navigation-item {
+    color: #111111;
   }
   .logo-shop {
     color: inherit;
@@ -373,6 +364,7 @@ body.mobile-menu-open {
     font-size: 14px;
     line-height: 1.29;
     letter-spacing: -0.04em;
+
     padding: 14px;
     border: 1.5px solid #111111;
     border-radius: 18px;
@@ -388,19 +380,28 @@ body.mobile-menu-open {
     margin-left: 90px;
   }
   /* ----------------------------------------------TABLET-AUTHORIZATED----------------------------------------------------------- */
-  //  signUpBox.classList.add('is-hidden') {
+  // .sign-up-box {
   //   display: none;
   // }
-  .authorizated-box {
+
+  // ----------------------поменял на блок---------
+  // .authorizated-box {
+  //   display: block;
+  // }
+  // --------------------------------------------------------
+
+  //  --------- добавил класс-------
+  .sign-authorizated-box {
     display: block;
   }
-.sign-authorizated-box{
-display:block;
-}
+
+  // --------------------------------------------------------
+
   .authorizated-btn {
+    min-width: 184px;
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-family: inherit;
     padding: 4px 12px;
@@ -411,9 +412,10 @@ display:block;
     transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   .authorizated-btn:hover {
-    box-shadow: 2px 2px 4px grey;
+    box-shadow: 2px 2px 2px var(--text-color-allcategories-white-theme);
   }
   .log-out-btn {
+    width: 184px;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -429,7 +431,7 @@ display:block;
     border: 1.5px solid var(--text-color-title-dark);
     border-radius: 18px;
     color: var(--text-color-title-dark);
-    background: var(--text-color-title-white);
+    background: var(--bg-white-header);
     cursor: pointer;
     transition: background 250ms cubic-bezier(0.4, 0, 0.2, 1),
       color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -444,31 +446,24 @@ display:block;
     fill: var(--text-color-title-white);
     margin-left: 4px;
   }
-  /* -----------------------------------------------------DARK-THEME-TABLET/PC----------------------------------------------- */
-  .navigation-item.dark-theme {
-    color: var(--text-color-title-white);
-  }
-  .logo-shop.dark-theme {
-    fill: var(--text-color-title-white);
-  }
-  .current.dark-theme {
-    color: var(--text-color-title-dark);
-  }
   /* -----------------------------------------------------books-counter------------------------------------------------ */
   .books-counter {
     position: absolute;
-    right: 4px;
-    top: 5px;
-    background-color: var(--text-color-title-violet);
+    right: 0px;
+    top: 2px;
+    background-color: var(--hover-focus);
     padding: 2px;
     border-radius: 50%;
   }
   .books-counter-number {
+    color: var(--bg-white-header);
+  }
+  .fa-fw {
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--text-color-title-white);
+    font-size: 13.5;
   }
 }
 /* ----------------------------------------------------PC------------------------------------------------------------ */

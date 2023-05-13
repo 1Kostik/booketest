@@ -37,19 +37,19 @@ refs.bestsellersSectionEl.addEventListener('click', onCardClick);
 function onCardClick(e) {
   e.preventDefault();
 
-  refs.spinnerEl.classList.remove('spinner-hidden');
   refs.modalActionBtnEl.addEventListener('click', onModalActionBtnClick);
   refs.backdropEl.addEventListener('click', onModalClose);
   document.addEventListener('keydown', onModalClose);
-
+  
   // ______ on book-card click check____
   if (
     e.target.nodeName !== 'IMG' &&
     e.target.nodeName !== 'A' &&
     e.target.nodeName !== 'P'
-  ) {
-    return;
-  }
+    ) {
+      return;
+    }
+  refs.spinnerEl.classList.remove('spinner-hidden');
 
   // _________________________________________
   refs.bodyEl.classList.add('modalIsOpen');
@@ -149,16 +149,19 @@ function onModalClose(e) {
 // -------------------ADD or REMOVE BOOK in SHOPPING LIST--------------------
 function onModalActionBtnClick(e) {
   const selectedEl = document.getElementById(`${shoppingBook.id}`);
+  const cartEl = selectedEl.querySelector('a div.book-shoppingcart');
+
   // --------------- add book ----------------------
   if (e.target.textContent === BUTTON_TEXT_ADD) {
     e.target.textContent = BUTTON_TEXT_REMOVE;
     refs.modalNotification.innerHTML = `<p class="congratulations-text">${NOTIFICATION}</p>`;
-    selectedEl.style.setProperty('background-color', '#4f2ee8');
 
     shoppingList.push(shoppingBook);
     updateBookOnStorage();
 
     refs.acum.innerHTML = shoppingList.length;
+
+    cartEl.classList.remove('is-hidden');
   }
   // --------------- remove book ----------------------
   else {
@@ -170,7 +173,7 @@ function onModalActionBtnClick(e) {
 
     refs.acum.innerHTML = shoppingList.length;
 
-    selectedEl.style.setProperty('background-color', '');
+    cartEl.classList.add('is-hidden');
   }
 }
 // -----------------------------------------------------------------------
