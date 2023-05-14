@@ -10,14 +10,13 @@ import {
 import { Notify } from 'notiflix';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCueUsU1d0mcpHAngXb_ZLT9zY8yGpC2NA',
-  authDomain: 'book-bd801.firebaseapp.com',
-  databaseURL:
-    'https://book-bd801-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'book-bd801',
-  storageBucket: 'book-bd801.appspot.com',
-  messagingSenderId: '728958539605',
-  appId: '1:728958539605:web:6d42e4f70f332c7467c1dc',
+  apiKey: "AIzaSyBgdNUVaXxTQ7QQMzB-ujzitC5kDyv39ZE",
+  authDomain: "booksadd-b7cc9.firebaseapp.com",
+  databaseURL: "https://booksadd-b7cc9-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "booksadd-b7cc9",
+  storageBucket: "booksadd-b7cc9.appspot.com",
+  messagingSenderId: "948351635799",
+  appId: "1:948351635799:web:057712a42c1ab47b196e12"
 };
 // const form = document.querySelector('.form_sign');
 const inputName = document.getElementById('names');
@@ -31,6 +30,7 @@ const logOutBtn = document.getElementById('logOutBtn');
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
+const quant = document.querySelector('.books-counter-number');
 
 // listner for auth status changes
 auth.onAuthStateChanged(user => {
@@ -51,7 +51,7 @@ auth.onAuthStateChanged(user => {
 
     console.log('user loggged in');
   } else {
-    // window.location.replace('./index.html');
+    // window.location.replace('https://dictionary.cambridge.org/dictionary/english-russian/employer');
     // window.location.href = './index.html';
     // localStorage.removeItem('shoppingList');
 
@@ -73,6 +73,7 @@ async function createLoginEmailPassword(e) {
       loginEmail,
       loginPassword
     ).then(userCredential => {
+      console.log(userCredential)
       const user = userCredential.user;
       const username = loginName;
       localStorage.setItem('name', username);
@@ -82,27 +83,12 @@ async function createLoginEmailPassword(e) {
 
       set(ref(database, 'users/' + user.uid), {
         name: loginName,
-        books: [0],
+        books:0
       });
 
       Notify.info('Sign up is successful, please Sign in to continue!');
     });
 
-    //   const userId = auth.currentUser.uid;
-
-    //   const getValue = await returnName();
-    //   function returnName() {
-    //      return onValue(
-    //         ref(database, '/users/' + userId),
-    //         snapshot => {
-    //            const username = snapshot.val().name;
-    //            console.log(username);
-    //          },
-    //          {
-    //             onlyOnce: true,
-    //          }
-    //          );
-    //       }
   }
 }
 
@@ -121,9 +107,9 @@ const loginEmailPassword = async e => {
     );
 
     const userId = auth.currentUser.uid;
-    const getValue = await returnName();
+    returnName();
     function returnName() {
-      return onValue(
+       return onValue(
         ref(database, 'users/' + userId),
         snapshot => {
           const username = snapshot.val().name;
@@ -131,8 +117,11 @@ const loginEmailPassword = async e => {
           if (userBooks) {
             localStorage.setItem('shoppingList', JSON.stringify(userBooks));
           }
-
+          
           localStorage.setItem('name', username);
+          const currerntBooks = JSON.parse(localStorage.getItem('shoppingList'));
+          const lengthBooks = currerntBooks.length;
+          quant.textContent = lengthBooks;
 
           const loggedUserName = localStorage.getItem('name');
           const blueBtn = document.querySelector('.user-name');
@@ -141,7 +130,7 @@ const loginEmailPassword = async e => {
         {
           onlyOnce: true,
         }
-      );
+     );
     }
   } else {
     return;
@@ -167,15 +156,17 @@ logOutBtn.addEventListener('click', onBtnLogout);
 
 //функция выхода
 
-function onBtnLogout(event) {
+async function onBtnLogout(event) {
   event.preventDefault();
 
   // localStorage.getItem('shoppingList');
   const shoppingListJSON = localStorage.getItem('shoppingList');
   let currentBooks = JSON.parse(shoppingListJSON);
   const currentName = localStorage.getItem('name');
-
-  function writeUserData() {
+//   if (currentBooks === null || currentBooks.length === 0) {
+//     currentBooks = 1;
+// }
+  async function writeUserData() {
     const database = getDatabase();
     const userId = auth.currentUser.uid;
     set(ref(database, 'users/' + userId), {
@@ -183,14 +174,19 @@ function onBtnLogout(event) {
       name: currentName,
     });
   }
-  writeUserData();
+  const wdata=await writeUserData();
 
-  auth.signOut().then(() => {
-    // window.location.replace('./index.html');
+  const sign = await auth.signOut();
+  const ins = await inits();
+  async function inits() {
+    
     // location.reload();
     // window.location.href = './index.html';
-    // localStorage.removeItem('shoppingList');
-
-    console.log('user signed out');
-  });
+    localStorage.removeItem('shoppingList');
+    localStorage.removeItem('name');
+  };
+//   const reloads=await reload()
+//  async function reload(){
+// window.location.replace('./index.html');
+//   }
 }
