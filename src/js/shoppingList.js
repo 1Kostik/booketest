@@ -5,7 +5,12 @@ if (localStorage.getItem('shoppingList')) {
   const shoppingListJSON = localStorage.getItem('shoppingList');
   let shoppingList = JSON.parse(shoppingListJSON);
 
-  const shoplistBooks = shoppingList.map(makeShoplistMarkup);
+  const shoplistBooks = checkShoplist(shoppingList);
+    function checkShoplist(shoppingList) {
+    return shoppingList.map(makeShoplistMarkup);
+  }
+   
+  // const shoplistBooks = shoppingList.map(makeShoplistMarkup);
 
   // CreateMarkup
 
@@ -109,3 +114,4 @@ if (localStorage.getItem('shoppingList')) {
     }
   }
 }
+
