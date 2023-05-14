@@ -61,37 +61,14 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-
-
-function registrUser(evt) {
-  evt.preventDefault();
-  
-console.log(evt.currentTarget.elements)
-  const {
-    elements: { inputName, inputEmail, inputPassword },
-  } = evt.currentTarget;
-
-  let userEmail = inputEmail.value;
-  let userPassword = inputPassword.value;
-  let userName = inputName.value;
-
-  if (createUser(auth, userEmail, userPassword, userName)) {
-    setTimeout(() => {
-      evt.target.reset();
-    }, 3000);
-  }
-}
-
-
-
- function createUser(auth, userEmail, userPassword, userName) {
+async function createLoginEmailPassword(e) {
   if (btnEnter.classList.contains('btnUp')) {
     e.preventDefault();
     const loginEmail = inputEmail.value;
     const loginPassword = inputPassword.value;
     const loginName = inputName.value;
 
-    const create = createUserWithEmailAndPassword(
+    const create = await createUserWithEmailAndPassword(
       auth,
       loginEmail,
       loginPassword
@@ -115,7 +92,7 @@ console.log(evt.currentTarget.elements)
   }
 }
 
-btnEnter.addEventListener('submit', registrUser);
+btnEnter.addEventListener('click', createLoginEmailPassword);
 
 const loginEmailPassword = async e => {
   if (btnEnter.classList.contains('btnIn')) {
@@ -149,11 +126,6 @@ const loginEmailPassword = async e => {
           const loggedUserName = localStorage.getItem('name');
           const blueBtn = document.querySelector('.user-name');
           blueBtn.textContent = loggedUserName;
-          if (createLoginEmailPassword(auth, userEmail, userPassword)) {
-    setTimeout(() => {
-      e.target.reset();
-    }, 3000);
-  }
         },
         {
           onlyOnce: true,
@@ -178,7 +150,7 @@ const loginEmailPassword = async e => {
   // });
 };
 
-btnEnter.addEventListener('submit', loginEmailPassword);
+btnEnter.addEventListener('click', loginEmailPassword);
 
 logOutBtn.addEventListener('click', onBtnLogout);
 
@@ -204,37 +176,17 @@ async function onBtnLogout(event) {
   }
   const wdata=await writeUserData();
 
-  signOut(auth)
-    .then(() => {
-      localStorage.removeItem('name');
-      localStorage.removeItem('shoppingList');
-      // window.location.href = './index.html';
-    })
-    .catch(error => {
-      console.log('Error logging out:', error);
-    });
-  // const sign = await auth.signOut();
-  // const ins = await inits();
-  // async function inits() {
+  const sign = await auth.signOut();
+  const ins = await inits();
+  async function inits() {
     
-  //   // location.reload();
-  //   // window.location.href = './index.html';
-  //   localStorage.removeItem('shoppingList');
-  //   localStorage.removeItem('name');
-  // };
+    // location.reload();
+    // window.location.href = './index.html';
+    localStorage.removeItem('shoppingList');
+    localStorage.removeItem('name');
+  };
 //   const reloads=await reload()
 //  async function reload(){
 // window.location.replace('./index.html');
 //   }
 }
-
-
-// signOut(auth)
-//     .then(() => {
-//       localStorage.removeItem('name');
-//       localStorage.removeItem('shoppingList');
-//       window.location.href = './index.html';
-//     })
-//     .catch(error => {
-//       console.log('Error logging out:', error);
-//     });
