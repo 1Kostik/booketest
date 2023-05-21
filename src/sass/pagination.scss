@@ -1,0 +1,18 @@
+.paginationBook {
+   display: flex;
+   justify-content: center;
+}
+.pagination_list{
+gap: 20px;;
+display: flex;
+list-style-type: none;
+}
+.pagination_item{
+padding: 8px;
+margin: 8px;
+cursor: pointer;
+}
+.pagination_item_active{
+   font-weight: 700;
+   color:gold;
+}

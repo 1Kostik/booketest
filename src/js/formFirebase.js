@@ -10,13 +10,14 @@ import {
 import { Notify } from 'notiflix';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgdNUVaXxTQ7QQMzB-ujzitC5kDyv39ZE",
-  authDomain: "booksadd-b7cc9.firebaseapp.com",
-  databaseURL: "https://booksadd-b7cc9-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "booksadd-b7cc9",
-  storageBucket: "booksadd-b7cc9.appspot.com",
-  messagingSenderId: "948351635799",
-  appId: "1:948351635799:web:057712a42c1ab47b196e12"
+  apiKey: 'AIzaSyCueUsU1d0mcpHAngXb_ZLT9zY8yGpC2NA',
+  authDomain: 'book-bd801.firebaseapp.com',
+  databaseURL:
+    'https://book-bd801-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'book-bd801',
+  storageBucket: 'book-bd801.appspot.com',
+  messagingSenderId: '728958539605',
+  appId: '1:728958539605:web:6d42e4f70f332c7467c1dc',
 };
 // const form = document.querySelector('.form_sign');
 const inputName = document.getElementById('names');
@@ -52,12 +53,16 @@ auth.onAuthStateChanged(user => {
     console.log('user loggged in');
   } else {
     // window.location.replace('https://dictionary.cambridge.org/dictionary/english-russian/employer');
-    // window.location.href = './index.html';
-    // localStorage.removeItem('shoppingList');
+
+    console.log('user loggged out');
+    
+    //   window.location.href = './index.html';
+    //  localStorage.removeItem('shoppingList');
+    // // // }
+
 
     //убери шоплист и убери имя на кнопку в хедере и убери иконку випадающего окна
 
-    console.log('user loggged out');
   }
 });
 
